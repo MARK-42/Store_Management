@@ -36,6 +36,9 @@ class Ui_MainWindow(object):
         self.label_4.setGeometry(QtCore.QRect(190, 50, 111, 21))
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.label_4.setObjectName("label_4")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(210, 280, 75, 23))
+        self.pushButton.setObjectName("pushButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -51,6 +54,5 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Username"))
         self.label_3.setText(_translate("MainWindow", "Password"))
         self.label_4.setText(_translate("MainWindow", "DBMS SHOP"))
+        self.pushButton.setText(_translate("MainWindow", "Login"))
 
-new_login = Ui_MainWindow()
-new_login.setupUi()
