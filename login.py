@@ -55,7 +55,7 @@ class Ui_MainWindow(object):
     def login(self):
         ###############
         output = self.cur.var(str)
-        print(self.cur.callproc("management.validEmployee", ('user', 'pass', output)))
+        print(self.cur.callproc("management.validEmployee", (self.usrnameTextField.text(), self.passTextField.text(), output)))
         print(output)
         ###############
         self.window = QtWidgets.QMainWindow()

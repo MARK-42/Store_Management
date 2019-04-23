@@ -12,14 +12,14 @@ create table tabEmployee(
 	firstName varchar2(15) NOT NULL,
 	lastName varchar2(15) NOT NULL,
     username varchar2(15) NOT NULL UNIQUE,
-    password varchar2(15) NOT NULL,
+    password varchar2(40) NOT NULL,
 	phoneNumber number(11) NOT NULL,
     address varchar2(30) NOT NULL,
     email varchar2(20) NOT NULL UNIQUE,
     salary number(10) NOT NULL,
     isManager char(1) NOT NULL
 );
-
+insert into tabEmployee values(1, 'owner', 'malik', 'user', 'pass', 1234, 'addr', 'qwer', 0, 'Y');
 CREATE SEQUENCE employeeSeq
 MINVALUE 1
 START WITH 1
@@ -74,3 +74,5 @@ create table tabProductRegister(
     quantity int NOT NULL,
     sellPrice float(2) NOT NULL
 );
+
+commit;

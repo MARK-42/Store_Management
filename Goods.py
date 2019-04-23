@@ -82,8 +82,6 @@ class Ui_goods(object):
         output = self.cur.var(str)
         print(self.cur.callproc("management.insertStock", (self.itemTextBox.toPlainText(), self.nameTextBox.toPlainText(), 
             'test', self.qtTextBox.toPlainText(), self.costTextBox.toPlainText(), 10, output )))
-        #insertStock(id tabProductStock.productId%type, prn tabProductStock.productName%type, cat tabProductStock.catagory%type,
-        # quant tabProductStock.totalQuantity%type, pr tabProductStock.price%type, wei tabProductStock.weight%type, exitc OUT varchar2);
         print(output)
 
 

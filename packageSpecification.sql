@@ -1,8 +1,8 @@
-CREATE OR REPLACE PACKAGE management IS
-    
+create or replace PACKAGE management IS
+
     FUNCTION get_hash (p_username  IN  VARCHAR2, p_password  IN  VARCHAR2) RETURN VARCHAR2;
 
-    PROCEDURE insertEmployee (fn tabEmployee.firstName%type, ln tabEmployee.lastName%type, un tabEmployee.username%type, ps tabEmployee.password%type, pn tabEmployee.phoneNumber%type, ad tabEmployee.address%type, em tabEmployee.email%type, sa tabEmployee.salary%type, ma tabEmployee.isManager%type, exitc OUT varchar2);
+    PROCEDURE insertEmployee (fn tabEmployee.firstName%type, ln tabEmployee.lastName%type, un tabEmployee.username%type, ps tabEmployee.password%type, pn tabEmployee.phoneNumber%type, ad tabEmployee.address%type, ema tabEmployee.email%type, sa tabEmployee.salary%type, ma tabEmployee.isManager%type, exitc OUT varchar2);
 
     PROCEDURE validEmployee (un tabEmployee.username%type, ps tabEmployee.password%type, exitc OUT varchar2);
 
@@ -20,7 +20,9 @@ CREATE OR REPLACE PACKAGE management IS
 
     PROCEDURE insertRegister(p_id tabProductRegister.productId%type, b_id tabProductRegister.billId%type, quant tabProductRegister.quantity%type, sl_pr tabProductRegister.sellPrice%type, exitc OUT varchar2);
 
-    PROCEDURE generateBill(c_id tabBill.customerId%type, cs_id tabBill.employeeId%type, amt tabBill.amount%type, ti tabBill.totalItems%type,p_m tabBill.paymentMethod%type,billTime tabBill.billTime%type,billDate tabBill.billDate%type,exitc out varchar2);
+    PROCEDURE generateBill(c_id tabBill.customerId%type, cs_id tabBill.employeeId%type, amt tabBill.amount%type, ti tabBill.totalItems%type,p_m tabBill.paymentMethod%type,billTime tabBill.billTime%type,billDate tabBill.billDate%type,exitc OUT varchar2);
+
+    PROCEDURE getAllProducts(result OUT varchar2);
 
 END management;
 /
