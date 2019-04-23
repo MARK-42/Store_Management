@@ -7,6 +7,9 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from billGenerator import Ui_BILL
+from Goods import Ui_goods
+from Employee import Ui_employee
 
 class Ui_ownerPage(object):
     def setupUi(self, ownerPage):
@@ -20,12 +23,15 @@ class Ui_ownerPage(object):
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(210, 120, 91, 23))
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.Goods)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(210, 170, 91, 23))
         self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_2.clicked.connect(self.Billing)
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setGeometry(QtCore.QRect(210, 220, 91, 23))
         self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_3.clicked.connect(self.Employee)
         ownerPage.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(ownerPage)
         self.statusbar.setObjectName("statusbar")
@@ -33,6 +39,24 @@ class Ui_ownerPage(object):
 
         self.retranslateUi(ownerPage)
         QtCore.QMetaObject.connectSlotsByName(ownerPage)
+
+    def Employee(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_employee()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def Goods(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_goods()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def Billing(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_BILL()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
     def retranslateUi(self, ownerPage):
         _translate = QtCore.QCoreApplication.translate
@@ -42,3 +66,9 @@ class Ui_ownerPage(object):
         self.pushButton_2.setText(_translate("ownerPage", "Billing"))
         self.pushButton_3.setText(_translate("ownerPage", "Add Employee"))
 
+
+if __name__ == '__main__':
+    app = QtGui.QApplication([])
+    gui = Ui_ownerPage()
+    gui.show()
+    app.exec_()

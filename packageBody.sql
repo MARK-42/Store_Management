@@ -33,8 +33,8 @@ CREATE OR REPLACE PACKAGE BODY management AS
         SELECT '1'
         INTO   v_dummy
         FROM   tabEmployee
-        WHERE  username = UPPER(un)
-        AND    password = get_hash(un, ps);
+        WHERE  username = un
+        AND    password = ps;
         exitc := 'Valid';
     EXCEPTION
         WHEN NO_DATA_FOUND THEN
