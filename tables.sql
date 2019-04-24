@@ -19,7 +19,7 @@ create table tabEmployee(
     salary number(10) NOT NULL,
     isManager char(1) NOT NULL
 );
-insert into tabEmployee values(1, 'owner', 'malik', 'user', 'pass', 1234, 'addr', 'qwer', 0, 'Y');
+insert into tabEmployee values(1, 'owner', 'malik', 'USER', 'CF55D79929C2B5CDB13271782076FAAB487FADA0', 1234, 'addr', 'qwer', 0, 'Y');
 CREATE SEQUENCE employeeSeq
 MINVALUE 1
 START WITH 1

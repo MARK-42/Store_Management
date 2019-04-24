@@ -10,6 +10,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_goods(object):
     def setupUi(self, MainWindow):
+        import cx_Oracle
+        import os
+        self.con = cx_Oracle.connect('shivansh', '1234', cx_Oracle.makedsn('localhost', 1521, 'DBMS1'))
+        self.cur = self.con.cursor()
+        output = self.cur.var(str)
+        print(self.cur.callproc("management.getAllProducts", [ output ]  ))
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(801, 428)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -21,13 +27,12 @@ class Ui_goods(object):
         self.label_2.setGeometry(QtCore.QRect(130, 130, 101, 41))
         self.label_2.setObjectName("label_2")
         self.itemComboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.itemComboBox.setGeometry(QtCore.QRect(280, 130, 171, 41))
+        self.itemComboBox.setGeometry(QtCore.QRect(280, 130, 191, 41))
         self.itemComboBox.setObjectName("itemComboBox")
-        self.itemComboBox.addItem("")
-        self.itemComboBox.addItem("")
-        self.editBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.editBtn.setGeometry(QtCore.QRect(540, 130, 121, 41))
-        self.editBtn.setObjectName("editBtn")
+
+        self.itemComboBox.clear()
+        self.itemComboBox.addItems(output.getvalue()[1:].split(';'))
+
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(10, 250, 91, 21))
         self.label_3.setObjectName("label_3")
@@ -80,11 +85,13 @@ class Ui_goods(object):
         self.con = cx_Oracle.connect('shivansh', '1234', cx_Oracle.makedsn('localhost', 1521, 'DBMS1'))
         self.cur = self.con.cursor()
         output = self.cur.var(str)
-        print(self.cur.callproc("management.insertStock", (self.itemTextBox.toPlainText(), self.nameTextBox.toPlainText(), 
-            'test', self.qtTextBox.toPlainText(), self.costTextBox.toPlainText(), 10, output )))
+        
+        if(self.addRb.isChecked()):
+            print(self.cur.callproc("management.insertStock", (self.itemComboBox.currentText().split(',')[0], 
+            	self.itemComboBox.currentText().split(',')[1], output )))
+        elif(self.editRb.isChecked()):
+            print(self.cur.callproc("management.updateStockQuantity", (self.itemTextBox.toPlainText(), int(self.qtTextBox.toPlainText()), output )))
         print(output)
-
-
         
 
     def retranslateUi(self, MainWindow):
@@ -92,9 +99,6 @@ class Ui_goods(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt;\">UPDATE INVENTORY</span></p></body></html>"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">ITEM</span></p></body></html>"))
-        self.itemComboBox.setItemText(0, _translate("MainWindow", "SOAP"))
-        self.itemComboBox.setItemText(1, _translate("MainWindow", "SHAMPOO"))
-        self.editBtn.setText(_translate("MainWindow", "EDIT"))
         self.label_3.setText(_translate("MainWindow", "ITEM ID"))
         self.label_5.setText(_translate("MainWindow", "COST"))
         self.label_6.setText(_translate("MainWindow", "QUANTITY"))
@@ -114,7 +118,7 @@ class Ui_goods(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">WASHING POWDER</p></body></html>"))
-        self.addBtn.setText(_translate("MainWindow", "ADD"))
+        self.addBtn.setText(_translate("MainWindow", "ADD/UPDATE"))
         self.itemTextBox.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -123,6 +127,7 @@ class Ui_goods(object):
         self.groupBox.setTitle(_translate("MainWindow", "CHOOSE "))
         self.editRb.setText(_translate("MainWindow", "EDIT"))
         self.addRb.setText(_translate("MainWindow", "ADD"))
+        self.addRb.setChecked(True)
 
 if __name__ == '__main__':
     app = QtGui.QApplication([])

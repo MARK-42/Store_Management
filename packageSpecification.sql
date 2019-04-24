@@ -12,7 +12,7 @@ create or replace PACKAGE management IS
 
     PROCEDURE checkStock (pId tabProductStock.productId%type, quant tabProductStock.totalQuantity%type, exitc OUT varchar2, result OUT boolean);
 
-    PROCEDURE searchProductId (prn tabProductStock.productName%type, cat tabProductStock.catagory%type, exitc OUT varchar2, result OUT tabProductStock.productId%type);
+    PROCEDURE searchProductId (prn tabProductStock.productName%type, cat tabProductStock.catagory%type, exitc OUT varchar2, result OUT varchar2);
 
     PROCEDURE insertStock(id tabProductStock.productId%type, prn tabProductStock.productName%type, cat tabProductStock.catagory%type, quant tabProductStock.totalQuantity%type, pr tabProductStock.price%type, wei tabProductStock.weight%type, exitc OUT varchar2);
 
@@ -26,3 +26,5 @@ create or replace PACKAGE management IS
 
 END management;
 /
+
+commit;

@@ -78,13 +78,24 @@ create or replace PACKAGE BODY management AS
         END IF;
     END;
 
-    PROCEDURE searchProductId (prn tabProductStock.productName%type, cat tabProductStock.catagory%type, exitc OUT varchar2, result OUT tabProductStock.productId%type) IS
+    PROCEDURE searchProductId (prn tabProductStock.productName%type, cat tabProductStock.catagory%type, exitc OUT varchar2, result OUT varchar2) IS
+     CURSOR productsCursor IS SELECT productId,productName,catagory,price,weight FROM tabProductStock Where productName = prn AND catagory = cat;
+     i productsCursor%rowtype;
     BEGIN
-        SELECT productId INTO result FROM tabProductStock WHERE productName = UPPER(prn) AND catagory = UPPER(cat);
-        exitc := 'Found';
-    EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-        exitc := 'Not Found';
+        OPEN productsCursor;
+        IF productsCursor%NOTFOUND THEN
+            exitc := 'NOTFOUND';
+            result := '';
+        ELSE 
+            exitc := 'FOUND';
+            LOOP
+            EXIT WHEN productsCursor%NOTFOUND;
+            fetch productsCursor into i;
+            
+                result := i.productId || ',' || i.productName || ',' || i.catagory || ',' || i.price || ',' || i.weight;
+            END LOOP ;
+        END IF;
+        CLOSE productsCursor;
     END;
 
     PROCEDURE insertStock(id tabProductStock.productId%type, prn tabProductStock.productName%type, cat tabProductStock.catagory%type, quant tabProductStock.totalQuantity%type, pr tabProductStock.price%type, wei tabProductStock.weight%type, exitc OUT varchar2) IS
@@ -150,13 +161,14 @@ create or replace PACKAGE BODY management AS
 
 
     PROCEDURE getAllProducts(result OUT varchar2) IS
-    CURSOR productsCursor IS SELECT productName,catagory FROM tabProductStock;
+    CURSOR productsCursor IS SELECT productId,productName,catagory FROM tabProductStock;
     BEGIN
         FOR i IN productsCursor
         LOOP
-            result := result || ';' || i.productName || ',' || i.catagory;
+            result := result || ';' || i.productId || ',' || i.productName || ',' || i.catagory;
         END LOOP;
     END;
 
 END management;
 /
+commit;

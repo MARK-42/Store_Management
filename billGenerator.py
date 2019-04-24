@@ -10,6 +10,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_BILL(object):
     def setupUi(self, BILL):
+        import cx_Oracle
+        import os
+        self.con = cx_Oracle.connect('shivansh', '1234', cx_Oracle.makedsn('localhost', 1521, 'DBMS1'))
+        self.cur = self.con.cursor()
+        output = self.cur.var(str)
+        print(self.cur.callproc("management.getAllProducts", [ output ]  ))
         BILL.setObjectName("BILL")
         BILL.resize(809, 580)
         self.centralwidget = QtWidgets.QWidget(BILL)
@@ -23,11 +29,15 @@ class Ui_BILL(object):
         self.itemComboBox = QtWidgets.QComboBox(self.centralwidget)
         self.itemComboBox.setGeometry(QtCore.QRect(80, 160, 201, 31))
         self.itemComboBox.setObjectName("itemComboBox")
-        self.itemComboBox.addItem("")
-        self.itemComboBox.addItem("")
+
+        self.itemComboBox.clear()
+        self.itemComboBox.addItems(output.getvalue()[1:].split(';'))
+        
         self.getDetailBtn = QtWidgets.QPushButton(self.centralwidget)
         self.getDetailBtn.setGeometry(QtCore.QRect(300, 160, 121, 31))
         self.getDetailBtn.setObjectName("getDetailBtn")
+        self.getDetailBtn.clicked.connect(self.getDetails)
+
         self.AddItemBtn = QtWidgets.QPushButton(self.centralwidget)
         self.AddItemBtn.setGeometry(QtCore.QRect(640, 160, 121, 31))
         self.AddItemBtn.setObjectName("AddItemBtn")
@@ -75,13 +85,26 @@ class Ui_BILL(object):
         self.retranslateUi(BILL)
         QtCore.QMetaObject.connectSlotsByName(BILL)
 
+    def getDetails(self):
+        import cx_Oracle
+        import os
+        self.con = cx_Oracle.connect('shivansh', '1234', cx_Oracle.makedsn('localhost', 1521, 'DBMS1'))
+        self.cur = self.con.cursor()
+        output  = self.cur.var(str)
+        result = self.cur.var(str,100)
+        print(self.itemComboBox.currentText().split(',')[1], 
+            self.itemComboBox.currentText().split(',')[2])
+        print(self.cur.callproc("management.searchProductID", (self.itemComboBox.currentText().split(',')[1], 
+            self.itemComboBox.currentText().split(',')[2], output, result )))
+        print(output)
+        print(result)
+        results = result.split(',')
+
     def retranslateUi(self, BILL):
         _translate = QtCore.QCoreApplication.translate
         BILL.setWindowTitle(_translate("BILL", "MainWindow"))
         self.label.setText(_translate("BILL", "<html><head/><body><p align=\"center\"><span style=\" font-size:24pt;\">BILLER</span></p></body></html>"))
         self.label_2.setText(_translate("BILL", "Item "))
-        self.itemComboBox.setItemText(0, _translate("BILL", "soap"))
-        self.itemComboBox.setItemText(1, _translate("BILL", "shampoo"))
         self.getDetailBtn.setText(_translate("BILL", "Get Details"))
         self.AddItemBtn.setText(_translate("BILL", "Add"))
         self.label_3.setText(_translate("BILL", "<html><head/><body><p><span style=\" font-size:14pt;\">ITEM DETAIL</span></p></body></html>"))
