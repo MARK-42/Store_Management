@@ -20,7 +20,7 @@ create or replace PACKAGE management IS
 
     PROCEDURE insertRegister(p_id tabProductRegister.productId%type, b_id tabProductRegister.billId%type, quant tabProductRegister.quantity%type, sl_pr tabProductRegister.sellPrice%type, exitc OUT varchar2);
 
-    PROCEDURE generateBill(c_id tabBill.customerId%type, cs_id tabBill.employeeId%type, amt tabBill.amount%type, ti tabBill.totalItems%type,p_m tabBill.paymentMethod%type,billTime tabBill.billTime%type,billDate tabBill.billDate%type,exitc OUT varchar2);
+    PROCEDURE generateBill(c_id tabBill.customerId%type, cs_id tabBill.employeeId%type, amt tabBill.amount%type, ti tabBill.totalItems%type,p_m tabBill.paymentMethod%type,billTime tabBill.billTime%type,billDate tabBill.billDate%type,exitc OUT varchar2, result OUT number);
 
     PROCEDURE getAllProducts(result OUT varchar2);
 

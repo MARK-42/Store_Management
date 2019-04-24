@@ -13,7 +13,7 @@ create table tabEmployee(
 	lastName varchar2(15) NOT NULL,
     username varchar2(15) NOT NULL UNIQUE,
     password varchar2(40) NOT NULL,
-	phoneNumber number(11) NOT NULL,
+	phoneNumber number(11) NOT NULL UNIQUE,
     address varchar2(30) NOT NULL,
     email varchar2(20) NOT NULL UNIQUE,
     salary number(10) NOT NULL,
@@ -30,7 +30,7 @@ create table tabCustomer(
 	customerId number(4) NOT NULL PRIMARY KEY,
 	firstName varchar2(15) NOT NULL,
 	lastName varchar2(15) NOT NULL,
-	phoneNumber number(11) NOT NULL,
+	phoneNumber number(11) NOT NULL UNIQUE,
     address varchar2(30) NOT NULL,
     email varchar2(20) NOT NULL UNIQUE,
     totalAmount number(15)

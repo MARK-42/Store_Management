@@ -131,10 +131,13 @@ create or replace PACKAGE BODY management AS
             exitc := 'Insert failed';
     END;
 
-    PROCEDURE generateBill(c_id tabBill.customerId%type, cs_id tabBill.employeeId%type, amt tabBill.amount%type, ti tabBill.totalItems%type,p_m tabBill.paymentMethod%type,billTime tabBill.billTime%type,billDate tabBill.billDate%type,exitc OUT varchar2) IS
+    PROCEDURE generateBill(c_id tabBill.customerId%type, cs_id tabBill.employeeId%type, amt tabBill.amount%type, ti tabBill.totalItems%type,p_m tabBill.paymentMethod%type,billTime tabBill.billTime%type,billDate tabBill.billDate%type,exitc OUT varchar2, result OUT number) IS
+        key tabBill.billId%type;
     BEGIN
-        INSERT INTO tabBill VALUES(billSeq.NEXTVAL,c_id,cs_id,amt,ti,p_m,billTime,billDate);
+        key := billSeq.NEXTVAL;
+        INSERT INTO tabBill VALUES(key,c_id,cs_id,amt,ti,p_m,billTime,billDate);
         dbms_output.put_line('Operation was a success');
+        result := key;
         exitc := 'Insert Success';
         COMMIT;
     EXCEPTION
