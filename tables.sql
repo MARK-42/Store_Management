@@ -49,7 +49,7 @@ create table tabBill(
     amount number(10) NOT NULL,
     totalItems number(4) NOT NULL,
 	paymentMethod varchar2(10) NOT NULL,
-    billTime varchar2(5) NOT NULL,
+    billTime varchar2(20) NOT NULL,
     billDate varchar2(10) NOT NULL
 );
 
@@ -67,7 +67,8 @@ create table tabProductStock(
     price float(2) NOT NULL,
     weight float(2) NOT NULL
 );
-
+insert into tabProductStock values('A001', 'WASHING POWDER', 'TEST', 10, 20, 20);
+insert into tabProductStock values('A002', 'BRUSH', 'TEST', 20, 10, 5);
 create table tabProductRegister(
     productId varchar2(20) NOT NULL,
     billId number(10) NOT NULL,
