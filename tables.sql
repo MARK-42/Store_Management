@@ -33,7 +33,7 @@ create table tabCustomer(
 	phoneNumber number(11) NOT NULL UNIQUE,
     address varchar2(30) NOT NULL,
     email varchar2(20) NOT NULL UNIQUE,
-    totalAmount number(15)
+    totalAmount number(15) DEFAULT 0
 );
 
 CREATE SEQUENCE customerSeq
@@ -58,6 +58,15 @@ MINVALUE 1
 START WITH 1
 INCREMENT BY 1
 CACHE 10;
+
+CREATE OR REPLACE TRIGGER afterBillInsert
+AFTER INSERT ON tabBill
+FOR EACH ROW
+BEGIN
+    UPDATE tabCustomer SET totalAmount = totalAmount+:new.amount WHERE customerId = :new.customerId;
+    dbms_output.put_line('Total Amount of customer with ID ' ||:new.customerId || ' updated.');
+END;
+/
 
 create table tabProductStock(
     productId varchar2(20) NOT NULL PRIMARY KEY,
