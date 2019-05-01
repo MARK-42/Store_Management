@@ -80,7 +80,7 @@ create or replace PACKAGE BODY management AS
     END;
 
     PROCEDURE searchProductId (prn tabProductStock.productName%type, cat tabProductStock.catagory%type, exitc OUT varchar2, result OUT varchar2) IS
-     CURSOR productsCursor IS SELECT productId,productName,catagory,price,weight FROM tabProductStock Where productName = prn AND catagory = cat;
+     CURSOR productsCursor IS SELECT productId,productName,catagory,price,totalQuantity FROM tabProductStock Where productName = prn AND catagory = cat;
      i productsCursor%rowtype;
     BEGIN
         OPEN productsCursor;
@@ -93,7 +93,7 @@ create or replace PACKAGE BODY management AS
             EXIT WHEN productsCursor%NOTFOUND;
             fetch productsCursor into i;
             
-                result := i.productId || ',' || i.productName || ',' || i.catagory || ',' || i.price || ',' || i.weight;
+                result := i.productId || ',' || i.productName || ',' || i.catagory || ',' || i.price || ',' || i.totalQuantity;
             END LOOP ;
         END IF;
         CLOSE productsCursor;

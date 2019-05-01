@@ -135,7 +135,11 @@ class Ui_BILL(object):
         self.Bill.setHorizontalHeaderLabels(horHeaders)
 
     def addItem(self):
-        if ( self.quantitySpinBox.value() > 0) :
+        if (self.quantitySpinBox.value() > int(self.ItemQtLbl.text()[11:]))  :
+            print('Not enough items in stock')
+            return
+
+        if ( self.quantitySpinBox.value() > 0 ) :
             
             self.Bill.insertRow(self.Bill.rowCount())
 
@@ -175,7 +179,10 @@ class Ui_BILL(object):
             str(datetime.now()).split(' ')[1], str(datetime.now()).split(' ')[0], output, result)))  
         for i in self.billList:
             self.cur.callproc("management.insertRegister", (i[0], result, i[1], i[2], output ))
-            print(output)    
+            print(output)
+        if (output.getvalue() == 'Insert Success'):
+            self.Bill.setRowCount(0);
+
 
     def getDetails(self):
         import cx_Oracle
