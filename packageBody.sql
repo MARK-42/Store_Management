@@ -29,13 +29,14 @@ create or replace PACKAGE BODY management AS
 
     PROCEDURE validEmployee (un tabEmployee.username%type, ps tabEmployee.password%type, exitc OUT varchar2) IS
         v_dummy  VARCHAR2(1);
+        res char(1);
     BEGIN
-        SELECT '1'
-        INTO   v_dummy
+        SELECT '1', tabEmployee.isManager
+        INTO   v_dummy, res
         FROM   tabEmployee
         WHERE  username = UPPER(un)
         AND    password = get_hash(un, ps);
-        exitc := 'Valid';
+        exitc := res;
     EXCEPTION
         WHEN NO_DATA_FOUND THEN
         exitc := 'Invalid';

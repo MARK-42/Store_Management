@@ -8,7 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from owner import Ui_ownerPage
-
+from billGenerator import Ui_BILL
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -56,14 +56,20 @@ class Ui_MainWindow(object):
         ###############
         output = self.cur.var(str)
         print(self.cur.callproc("management.validEmployee", (self.usrnameTextField.text(), self.passTextField.text(), output)))
-        print(output)
-        ###############
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_ownerPage()
-        self.ui.setupUi(self.window)
-        MainWindow.hide()
-        self.window.show()
+        if(output.getvalue() == 'Y'):
 
+            ###############
+            self.window = QtWidgets.QMainWindow()
+            self.ui = Ui_ownerPage()
+            self.ui.setupUi(self.window)
+            MainWindow.hide()
+            self.window.show()
+        else :
+            self.window = QtWidgets.QMainWindow()
+            self.ui = Ui_BILL()
+            self.ui.setupUi(self.window)
+            MainWindow.hide()
+            self.window.show()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

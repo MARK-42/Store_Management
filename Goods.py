@@ -87,8 +87,9 @@ class Ui_goods(object):
         output = self.cur.var(str)
         
         if(self.addRb.isChecked()):
-            print(self.cur.callproc("management.insertStock", (self.itemComboBox.currentText().split(',')[0], 
-            	self.itemComboBox.currentText().split(',')[1], output )))
+            
+            print(self.cur.callproc("management.insertStock", (self.itemTextBox.toPlainText(), self.nameTextBox.toPlainText(), 
+            'test', self.qtTextBox.toPlainText(), self.costTextBox.toPlainText(), 10, output )))
         elif(self.editRb.isChecked()):
             print(self.cur.callproc("management.updateStockQuantity", (self.itemTextBox.toPlainText(), int(self.qtTextBox.toPlainText()), output )))
         print(output)
