@@ -54,8 +54,16 @@ class Ui_MainWindow(object):
 
     def login(self):
         ###############
+        import cx_Oracle
         output = self.cur.var(str)
-        print(self.cur.callproc("management.validEmployee", (self.usrnameTextField.text(), self.passTextField.text(), output)))
+        try:
+            print(self.cur.callproc("management.validEmployee", (self.usrnameTextField.text(), self.passTextField.text(), output)))
+        except (cx_Oracle.DatabaseError):
+            print('Wrong ID/PASS')
+            return
+        else:
+            print('WELCOME')
+
         if(output.getvalue() == 'Y'):
 
             ###############

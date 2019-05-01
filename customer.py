@@ -8,7 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_MainWindow(object):
+class Ui_Customer(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(643, 475)
@@ -51,6 +51,11 @@ class Ui_MainWindow(object):
         font.setPointSize(22)
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(300, 400, 75, 23))
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.regCust)
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 643, 21))
@@ -63,6 +68,17 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def regCust(self):
+
+        import cx_Oracle
+        import os
+        self.con = cx_Oracle.connect('shivansh', '1234', cx_Oracle.makedsn('localhost', 1521, 'DBMS1'))
+        self.cur = self.con.cursor()
+        output = self.cur.var(str)
+        print(self.cur.callproc("management.insertCustomer", (self.FNameTxt.text(), self.LNameTxt.text(), 
+            self.PhoneTxt.text(), self.AddrTxt.text(), self.EmailTxt.text() ,0, output )))
+        print(output)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -72,4 +88,5 @@ class Ui_MainWindow(object):
         self.Email.setText(_translate("MainWindow", "Email"))
         self.Phone.setText(_translate("MainWindow", "Phone"))
         self.label_6.setText(_translate("MainWindow", "New Customer"))
+        self.pushButton.setText(_translate("MainWindow", "Register"))
 

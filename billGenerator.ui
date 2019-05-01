@@ -190,7 +190,7 @@
    <widget class="QTextEdit" name="custIdTextEdit">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>100</x>
       <y>500</y>
       <width>161</width>
       <height>31</height>
@@ -202,12 +202,12 @@
      <rect>
       <x>20</x>
       <y>550</y>
-      <width>191</width>
+      <width>81</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>New Customer ? Register Here !!</string>
+     <string>New Customer ?</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_11">
@@ -266,6 +266,19 @@
     <column/>
     <column/>
     <column/>
+   </widget>
+   <widget class="QPushButton" name="regBtn">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>550</y>
+      <width>81</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Register Here</string>
+    </property>
    </widget>
   </widget>
  </widget>

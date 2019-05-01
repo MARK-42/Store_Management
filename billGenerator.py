@@ -8,6 +8,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidget,QTableWidgetItem
+from customer import Ui_Customer
+
 
 class Ui_BILL(object):
     def setupUi(self, BILL):
@@ -20,6 +22,9 @@ class Ui_BILL(object):
 
         BILL.setObjectName("BILL")
         BILL.resize(809, 580)
+
+        
+
         self.centralwidget = QtWidgets.QWidget(BILL)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -31,7 +36,10 @@ class Ui_BILL(object):
         self.itemComboBox = QtWidgets.QComboBox(self.centralwidget)
         self.itemComboBox.setGeometry(QtCore.QRect(80, 160, 201, 31))
         self.itemComboBox.setObjectName("itemComboBox")
+
         
+
+
         self.quantitySpinBox = QtWidgets.QSpinBox(self.centralwidget)
         self.quantitySpinBox.setGeometry(QtCore.QRect(541, 161, 71, 31))
         self.quantitySpinBox.setObjectName("quantitySpinBox")
@@ -68,6 +76,7 @@ class Ui_BILL(object):
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
         self.label_8.setGeometry(QtCore.QRect(450, 160, 81, 31))
         self.label_8.setObjectName("label_8")
+         
 
 
         
@@ -93,6 +102,11 @@ class Ui_BILL(object):
 
         self.GenBillBtn.clicked.connect(self.genBill)
 
+        self.regBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.regBtn.setGeometry(QtCore.QRect(110, 550, 81, 23))
+        self.regBtn.setObjectName("regBtn")
+        self.regBtn.clicked.connect(self.newCust)
+
         self.Bill = QtWidgets.QTableWidget(self.centralwidget)
         self.Bill.setGeometry(QtCore.QRect(170, 270, 511, 192))
         self.Bill.setColumnCount(5)
@@ -104,6 +118,12 @@ class Ui_BILL(object):
         self.billList = []
         self.retranslateUi(BILL)
         QtCore.QMetaObject.connectSlotsByName(BILL)
+
+    def newCust(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_Customer()
+        self.ui.setupUi(self.window)
+        self.window.show()        
 
     def setData(self): 
         horHeaders = []
@@ -190,10 +210,11 @@ class Ui_BILL(object):
         self.itemIdLbl.setText(_translate("BILL", "ID : A101"))
         self.label_8.setText(_translate("BILL", "QUANTITY"))
         self.label_9.setText(_translate("BILL", "CUSTOMER ID"))
-        self.custRegLbl.setText(_translate("BILL", ""))
+        self.custRegLbl.setText(_translate("BILL", "New Customer?"))
         self.label_11.setText(_translate("BILL", "Total Amount"))
         self.totalAmtLbl.setText(_translate("BILL", "0"))
         self.GenBillBtn.setText(_translate("BILL", "Generate Bill"))
+        self.regBtn.setText(_translate("BILL", "Register Here"))
 
 if __name__ == '__main__':
     app = QtGui.QApplication([])

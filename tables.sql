@@ -27,7 +27,7 @@ INCREMENT BY 1
 CACHE 10;
 
 create table tabCustomer(
-	customerId number(4) NOT NULL PRIMARY KEY,
+	customerId number(10) NOT NULL PRIMARY KEY,
 	firstName varchar2(15) NOT NULL,
 	lastName varchar2(15) NOT NULL,
 	phoneNumber number(11) NOT NULL UNIQUE,
