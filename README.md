@@ -3,6 +3,7 @@
 ## Created By :-
   Shivansh Beohar
   Neelaksh Trehan
+  Ritik Raj Gupta
   
 This is our mini project for 4th Semester DBMS Course. It is a Python-QT based Desktop application for Billing, Stock items 
 management and provides facilities to create customer profiles for a small-medium sized stores. The owner of the store can also 
