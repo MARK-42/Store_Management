@@ -1,8 +1,9 @@
 # Store Management
 
 ## Created By :-
-  Shivansh Beohar
-  Neelaksh Trehan
+  Shivansh Beohar <br>
+  Neelaksh Trehan <br>
+  Vineet Gupta <br>
   Ritik Raj Gupta
   
 This is our mini project for 4th Semester DBMS Course. It is a Python-QT based Desktop application for Billing, Stock items 
